@@ -6,6 +6,8 @@ defmodule ShardsOfOcarion.MixProject do
       app: :shards_of_ocarion,
       version: "0.1.0",
       elixir: "~> 1.9",
+      # elixirc_paths: elixirc_paths(Mix.env),
+      compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -15,6 +17,7 @@ defmodule ShardsOfOcarion.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
+      mod: {ShardsOfOcarion.Application, []},
       extra_applications: [:logger],
       applications: [:nadia]
     ]
