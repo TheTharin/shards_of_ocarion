@@ -7,6 +7,7 @@ defmodule ShardsOfOcarion.MixProject do
       version: "0.1.0",
       elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
       deps: deps()
     ]
   end
@@ -14,7 +15,8 @@ defmodule ShardsOfOcarion.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      applications: [:nadia]
     ]
   end
 
@@ -47,7 +49,18 @@ defmodule ShardsOfOcarion.MixProject do
       {:jason, "~> 1.1"},
 
       # HTTP Client
-      {:hackney, "~> 1.15"}
+      {:hackney, "~> 1.15"},
+
+      # Telegram API Wrapper
+      {:nadia, "~> 0.5.0"}
+    ]
+  end
+
+  defp aliases do
+    [
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end
