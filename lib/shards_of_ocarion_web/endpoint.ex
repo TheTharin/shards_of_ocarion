@@ -23,6 +23,12 @@ defmodule ShardsOfOcarionWeb.Endpoint do
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
 
+  plug(Plug.Session,
+    store: :cookie,
+    key: "_shards_of_ocarion_key",
+    signing_salt: "0Ryfy93t"
+  )
+
   plug(ShardsOfOcarionWeb.Router)
 
   @doc """

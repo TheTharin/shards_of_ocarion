@@ -1,0 +1,29 @@
+use Mix.Config
+
+config :shards_of_ocarion, ShardsOfOcarionWeb.Endpoint,
+  http: [port: 4222],
+  url: [host: "localhost"],
+  pubsub: [name: ShardsOfOcarion.PubSub, adapter: Phoenix.PubSub.PG2],
+  debug_errors: false,
+  code_reloader: false,
+  check_origin: false
+
+config :shards_of_ocarion, ShardsOfOcarion.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  database: "shards_of_ocarion_test",
+  hostname: "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox,
+  pool_size: 10
+
+config :shards_of_ocarion, :tg_sender, ShardsOfOcarionWeb.Senders.TelegramSenderMock
+config :shards_of_ocarion, :message_handler, ShardsOfOcarionWeb.Handlers.MessageHandlerMock
+config :shards_of_ocarion, :tg_tool, ShardsOfOcarionWeb.NadiaMock
+
+config :logger, :console,
+  level: :error,
+  format: "$time $metadata[$level] $message\n",
+  metadata: [:request_id]
+
+config :nadia, token: {:system, "BOT_TOKEN", "yourtoken"}
+
+config :phoenix, :json_library, Jason

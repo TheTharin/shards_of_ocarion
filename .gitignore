@@ -22,3 +22,7 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 shards_of_ocarion-*.tar
 
+/.elixir_ls/
+/config/config.exs
+/config/dev.exs
+/config/test.exs

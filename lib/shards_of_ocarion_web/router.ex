@@ -1,14 +1,16 @@
 defmodule ShardsOfOcarionWeb.Router do
   use ShardsOfOcarionWeb, :router
   use Plug.ErrorHandler
+  alias ShardsOfOcarionWeb.Helpers.RouterHelper
 
   pipeline :api do
     plug(:accepts, ["json"])
-    plug(:protect_from_forgery)
+    plug(:fetch_session)
   end
 
-  scope "/", ShardsOfOcarionWeb do
+  scope "/api", ShardsOfOcarionWeb.Api do
     pipe_through(:api)
-    post("/receive_update", ReceiveUpdateController, :create, as: :receive_update)
+
+    resources("/#{RouterHelper.normalized_token()}/receive_update", ReceiveUpdateController, only: [:create])
   end
 end

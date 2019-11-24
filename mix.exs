@@ -5,8 +5,8 @@ defmodule ShardsOfOcarion.MixProject do
     [
       app: :shards_of_ocarion,
       version: "0.1.0",
-      elixir: "~> 1.9",
-      # elixirc_paths: elixirc_paths(Mix.env),
+      elixir: "~> 1.10",
+      elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -18,8 +18,7 @@ defmodule ShardsOfOcarion.MixProject do
   def application do
     [
       mod: {ShardsOfOcarion.Application, []},
-      extra_applications: [:logger],
-      applications: [:nadia]
+      extra_applications: [:logger, :nadia]
     ]
   end
 
@@ -37,11 +36,6 @@ defmodule ShardsOfOcarion.MixProject do
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.14.3"},
 
-      # GraphQL
-      {:absinthe, "~> 1.4.16", override: true},
-      {:absinthe_plug, "~> 1.4.7"},
-      {:absinthe_ecto, "~> 0.1.3"},
-
       # Auth
       {:comeonin, "~> 4.0"},
       {:secure_random, "~> 0.5"},
@@ -55,7 +49,13 @@ defmodule ShardsOfOcarion.MixProject do
       {:hackney, "~> 1.15"},
 
       # Telegram API Wrapper
-      {:nadia, "~> 0.5.0"}
+      {:nadia, "~> 0.6.0"},
+
+      # # Mocks for testing
+      # {:patch, "~> 0.1.1", only: [:test]}
+
+      # Mocks for testing
+      {:mox, "~> 0.5", only: :test}
     ]
   end
 
@@ -66,4 +66,7 @@ defmodule ShardsOfOcarion.MixProject do
       test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
+
+  defp elixirc_paths(:test), do: ["test/support", "lib"]
+  defp elixirc_paths(_), do: ["lib"]
 end

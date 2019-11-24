@@ -1,0 +1,23 @@
+use Mix.Config
+
+config :shards_of_ocarion, ecto_repos: [ShardsOfOcarion.Repo]
+
+# config :shards_of_ocarion, ShardsOfOcarionWeb.Endpoint,
+#   http: [port: 4222],
+#   url: [host: "localhost"],
+#   render_errors: [view: ShardsOfOcarion.ErrorView, accepts: ~w(json)],
+#   pubsub: [name: ShardsOfOcarion.PubSub, adapter: Phoenix.PubSub.PG2],
+#   debug_errors: true,
+#   code_reloader: true,
+#   check_origin: false
+
+config :phoenix, :json_library, Jason
+
+config :shards_of_ocarion, :tg_sender, ShardsOfOcarionWeb.Senders.TelegramSender
+config :shards_of_ocarion, :message_handler, ShardsOfOcarionWeb.Handlers.MessageHandler
+config :shards_of_ocarion, :tg_tool, Nadia
+config :shards_of_ocarion, :env, Mix.env()
+
+# Import environment specific config. This must remain at the bottom
+# of this file so it overrides the configuration defined above.
+import_config "#{Mix.env()}.exs"
